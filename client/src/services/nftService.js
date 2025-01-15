@@ -12,12 +12,14 @@ export const getNFTs = async (walletAddress) => {
 
     return nftAccounts.map(nft => ({
       mint: nft.mint,
-      name: nft.data.name,
-      image: nft.data.uri,
-      floorPrice: 0 // You would need to fetch this from a marketplace API
+      name: nft.data?.name || 'Unnamed NFT',
+      image: nft.data?.uri || '',
+      floorPrice: 0,
+      collection: nft.data?.collection,
+      attributes: nft.data?.attributes
     }));
   } catch (error) {
     console.error('Error fetching NFTs:', error);
-    throw error;
+    throw new Error(`Failed to fetch NFTs: ${error.message}`);
   }
 }; 

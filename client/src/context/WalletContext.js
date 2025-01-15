@@ -16,7 +16,10 @@ require('@solana/wallet-adapter-react-ui/styles.css');
 export const WalletContext = createContext({});
 
 export function WalletContextProvider({ children }) {
-  const network = WalletAdapterNetwork.Mainnet;
+  const network = process.env.REACT_APP_NETWORK === 'devnet' 
+    ? WalletAdapterNetwork.Devnet 
+    : WalletAdapterNetwork.Mainnet;
+  
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   
   const wallets = useMemo(

@@ -5,11 +5,20 @@ function WalletConnect() {
   const { wallet, connect, disconnect, connected } = useWallet();
 
   return (
-    <div>
+    <div className="wallet-connect">
       {!connected ? (
-        <button onClick={connect}>Connect Wallet</button>
+        <button 
+          onClick={connect}
+          className="connect-button"
+        >
+          Connect Wallet
+        </button>
       ) : (
-        <button onClick={disconnect}>Disconnect</button>
+        <div className="wallet-info">
+          <span>{wallet?.adapter?.publicKey?.toString().slice(0,4)}...
+                {wallet?.adapter?.publicKey?.toString().slice(-4)}</span>
+          <button onClick={disconnect}>Disconnect</button>
+        </div>
       )}
     </div>
   );
